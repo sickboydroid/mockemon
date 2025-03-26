@@ -1,11 +1,28 @@
 * {
   margin: 0;
-  box-sizing: border-box;
   padding: 0;
+  box-sizing: border-box;
 }
 
-:root {
-  height: 100vh;
-  box-sizing: border-box;
+html,
+body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
   border: none;
+  background: none;
+  outline: none;
 }
