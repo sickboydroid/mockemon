@@ -1,0 +1,62 @@
+* {
+  /* border: 2px solid black; */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+@font-face {
+  font-family: "Menlo";
+  src: url("../../assets/fonts/Menlo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.compiler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+}
+
+.controls {
+  background-color: pink;
+}
+.editor {
+}
+
+.content {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 40% auto;
+  grid-template-rows: 80% auto;
+  gap: 24px 24px;
+}
+
+.change_question {
+  background-color: blue;
+}
+
+.handle {
+  position: absolute;
+  background-color: black;
+}
+
+.vertical-handle {
+  cursor: col-resize;
+  width: 24px;
+  height: calc(100% - 60px);
+  left: 40%;
+  top: 60px;
+}
+
+.horizontal-handle {
+  cursor: row-resize;
+  height: 24px;
+  width: 60%;
+  top: calc(80% + 12px);
+  right: 0%;
+}

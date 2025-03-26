@@ -1,0 +1,51 @@
+# My files
+todo.md
+assets/questions.json
+
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build and output directories
+dist/
+build/
+public/
+
+# Webpack specific
+.cache/
+.webpack/
+
+# Logs
+logs/
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime*
+
+# MacOS & Linux system files
+.DS_Store
+*.~
+
+# Temporary files
+*.bak
+*.tmp
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Miscellaneous
+*.tar.gz
+*.zip
