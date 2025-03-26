@@ -1,6 +1,7 @@
 * {
   /* border: 2px solid black; */
 }
+
 body {
   display: flex;
   flex-direction: column;
@@ -25,19 +26,20 @@ body {
 .controls {
   background-color: pink;
 }
-.editor {
+
+.editor-container {
+  position: relative;
+  .editor {
+    height: 100%;
+  }
 }
 
 .content {
-  height: 100%;
   display: grid;
+  height: 100%;
   grid-template-columns: 40% auto;
   grid-template-rows: 80% auto;
   gap: 24px 24px;
-}
-
-.change_question {
-  background-color: blue;
 }
 
 .handle {
@@ -59,4 +61,39 @@ body {
   width: 60%;
   top: calc(80% + 12px);
   right: 0%;
+}
+
+/* CSS */
+button {
+  --bg-color: white;
+  --bg-color-hover: rgb(217, 217, 218);
+  --bg-color-active: rgb(214, 214, 214);
+  background-color: var(--bg-color);
+  border: 0;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: #111827;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: 0.75rem 1rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: background-color 250ms;
+
+  &:hover {
+    background-color: var(--bg-color-hover);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  &:focus-visible {
+    box-shadow: none;
+  }
+
+  &:active {
+    background-color: var(--bg-color-active);
+  }
 }

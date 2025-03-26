@@ -1,0 +1,146 @@
+.draggable-widget {
+  user-select: none;
+  position: absolute;
+}
+
+.video-container {
+  position: absolute;
+  user-select: none;
+  height: 180px;
+  width: 320px;
+  left: 80%;
+  background-color: red;
+
+  .video-in {
+    width: 100%;
+    height: 100%;
+    background-color: lightblue;
+  }
+  .video-out {
+    position: absolute;
+    height: 90px;
+    width: 160px;
+    top: calc(100% - 90px);
+    left: calc(100% - 160px);
+    background-color: lightcoral;
+  }
+}
+
+.icon {
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background-color: var(--normal-bg-color);
+  transition: background-color 250ms;
+  background-image: var(--control-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0px;
+  --normal-bg-color: #f8d7da;
+  --hover-bg-color: #e57373;
+  --active-bg-color: #c62828;
+  &:hover {
+    background-color: var(--hover-bg-color);
+  }
+
+  &:active {
+    background-color: var(--active-bg-color);
+  }
+}
+
+.live-controls {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px 0px 0.931014px 0px, rgba(0, 0, 0, 0.08) 0px 0px 3.12708px 0px,
+    rgba(0, 0, 0, 0.05) 0px 7px 14px 0px;
+  height: 60px;
+  left: 40%;
+  top: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 6px;
+  background-color: white;
+  gap: 6px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 0.5rem;
+
+  & .on {
+    --normal-bg-color: #d4edda;
+    --hover-bg-color: #a1d6a2;
+    --active-bg-color: #60c465;
+  }
+  & .drag-indicator {
+    background-image: url("../../assets/icons/drag_indicator.svg");
+    background-repeat: no-repeat;
+    background-position: left center;
+    width: 22px;
+    height: 44px;
+  }
+
+  & .pointer {
+    --control-icon: url("../../assets/icons/pointer_off.svg");
+    &.on {
+      --control-icon: url("../../assets/icons/pointer_on.svg");
+    }
+  }
+  & .audio {
+    --control-icon: url("../../assets/icons/mic_off.svg");
+    &.on {
+      --control-icon: url("../../assets/icons/mic_on.svg");
+    }
+  }
+  & .video {
+    --control-icon: url("../../assets/icons/videocam_off.svg");
+    &.on {
+      --control-icon: url("../../assets/icons/videocam_on.svg");
+    }
+  }
+}
+
+.question-controls {
+  position: absolute;
+  left: calc(100% - 90px);
+  top: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+
+  & .change-question {
+    box-shadow: rgba(0, 0, 0, 0.17) 0px 0px 0.931014px 0px,
+      rgba(0, 0, 0, 0.08) 0px 0px 3.12708px 0px, rgba(0, 0, 0, 0.05) 0px 7px 14px 0px;
+    --control-icon: url("../../assets/icons/change_question.svg");
+    --normal-bg-color: white;
+    --hover-bg-color: #a1d6a2;
+    --active-bg-color: #84d488;
+    padding: 5px;
+  }
+}
+
+.code-exec-controls {
+  position: absolute;
+  left: calc(100% - 180px);
+  top: calc(100% - 60px);
+  display: flex;
+  flex-direction: row;
+  font-family: inherit;
+  gap: 6px;
+  padding: 5px;
+  font-size: 1.2rem;
+
+  .submit {
+    --bg-color: rgb(245, 199, 182);
+    --bg-color-hover: rgb(240, 177, 155);
+    --bg-color-active: rgb(247, 156, 123);
+    color: rgb(92, 61, 50);
+  }
+
+  .run {
+    --bg-color: rgb(180, 247, 180);
+    --bg-color-hover: rgb(141, 238, 141);
+    --bg-color-active: rgb(97, 247, 97);
+    color: rgb(33, 80, 33);
+  }
+}
