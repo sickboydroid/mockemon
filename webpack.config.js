@@ -50,6 +50,6 @@ module.exports = {
     port: 3005, // Port number for the dev server
     open: true, // Open browser automatically
     hot: true, // Enable Hot Module Replacement (HMR)
-    watchFiles: ["src/**/*.*"], // Watch for changes in HTML files
+    watchFiles: ["src/**/*.*", "assets/**/*.svg"], // Watch for changes in HTML files
   },
 };

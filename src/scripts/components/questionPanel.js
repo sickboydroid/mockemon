@@ -8,6 +8,4 @@ export function setupQuestionPanel() {
   let { title, difficulty, content } = getQuestionById(id);
   question.innerHTML = `<h2>${title}</h2>
   <div class="question-body">${content}</div>`;
-  console.log(content);
-  console.log(marked(content));
 }

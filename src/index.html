@@ -10,16 +10,37 @@
     <header>
       <div class="logo">Mockémon</div>
     </header>
-    <div class="vertical-handle handle"></div>
-    <div class="horizontal-handle handle"></div>
+    <!-- MAIN-CONTENT -->
     <div class="content">
-      <div class="question"></div>
-      <div class="editor">
-        <!-- <textarea name="code-editor" id="code-editor">console.log('Hello');</textarea> -->
+      <div class="question-container">
+        <div class="question"></div>
+        <div class="question-controls">
+          <div class="icon change-question"></div>
+        </div>
+      </div>
+      <div class="editor-container">
+        <div class="editor"></div>
+        <div class="code-exec-controls">
+          <button class="submit">Submit</button>
+          <button class="run">Run</button>
+        </div>
       </div>
       <div class="compiler">Compiler will added soon!</div>
-      <!-- <div class="controls"></div> -->
-      <!-- <div class="change_question"></div> -->
+    </div>
+
+    <!-- ABSOLUTE ITEMS -->
+    <div class="vertical-handle handle"></div>
+    <div class="horizontal-handle handle"></div>
+    <!-- CONTROLS -->
+    <div class="draggable-widget live-controls">
+      <div class="drag-indicator"></div>
+      <div class="pointer icon on"></div>
+      <div class="audio icon on"></div>
+      <div class="video icon on"></div>
+    </div>
+    <div class="video-container">
+      <div class="video-in"></div>
+      <div class="video-out"></div>
     </div>
   </body>
 </html>

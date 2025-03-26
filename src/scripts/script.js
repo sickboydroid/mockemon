@@ -2,9 +2,12 @@ import "../styles/main.css";
 import "../styles/question.css";
 import "../styles/reset.css";
 import "../styles/header.css";
+import "../styles/controls.css";
+
 import { setupEditor } from "./components/editorPanel";
 import { clamp } from "./utils";
 import { setupQuestionPanel } from "./components/questionPanel";
+import { setupControls } from "./components/draggable-widgets/constrols";
 
 function setupPanels() {
   vertical_handle.addEventListener("mousedown", e => {
@@ -46,3 +49,4 @@ const content = document.querySelector(".content");
 setupPanels();
 setupEditor();
 setupQuestionPanel();
+setupControls();
