@@ -14,7 +14,7 @@ export function setupLiveControls() {
     inertia: true,
     modifiers: [
       interact.modifiers.restrictRect({
-        restriction: document.querySelector(".content"),
+        restriction: document.querySelector("main"),
       }),
     ],
     autoScroll: true,
@@ -92,7 +92,7 @@ export function setupLiveControls() {
       inertia: true,
       modifiers: [
         interact.modifiers.restrictRect({
-          restriction: document.querySelector(".content"),
+          restriction: document.querySelector("main"),
         }),
       ],
     });
