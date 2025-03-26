@@ -1,8 +1,3 @@
-.draggable-widget {
-  user-select: none;
-  position: absolute;
-}
-
 .video-container {
   position: absolute;
   user-select: none;
@@ -51,6 +46,8 @@
 }
 
 .live-controls {
+  user-select: none;
+  position: absolute;
   box-shadow: rgba(0, 0, 0, 0.17) 0px 0px 0.931014px 0px, rgba(0, 0, 0, 0.08) 0px 0px 3.12708px 0px,
     rgba(0, 0, 0, 0.05) 0px 7px 14px 0px;
   height: 60px;
@@ -72,7 +69,7 @@
     --hover-bg-color: #a1d6a2;
     --active-bg-color: #60c465;
   }
-  & .drag-indicator {
+  & .drag-handle {
     background-image: url("../../assets/icons/drag_indicator.svg");
     background-repeat: no-repeat;
     background-position: left center;
@@ -120,7 +117,7 @@
   }
 }
 
-.code-exec-controls {
+.code-controls {
   position: absolute;
   left: calc(100% - 180px);
   top: calc(100% - 60px);

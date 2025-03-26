@@ -55,7 +55,7 @@ main {
     background-repeat: no-repeat;
   }
 
-  &.vertical-handle {
+  &.vertical {
     --icon: url("../../assets/icons/drag_handle_vertical.svg");
     width: var(--grid-gap);
     height: calc(100% - var(--header-height));
@@ -64,12 +64,12 @@ main {
     cursor: col-resize;
   }
 
-  &.horizontal-handle {
+  &.horizontal {
     --icon: url("../../assets/icons/drag_handle_horizontal.svg");
     width: calc(60% - var(--grid-gap));
     height: var(--grid-gap);
-    top: calc(80% + var(--grid-gap));
     right: 0;
+    /* top is set from the code as it requires some complicated calculation */
     cursor: row-resize;
   }
 }

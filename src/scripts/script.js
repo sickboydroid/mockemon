@@ -9,7 +9,7 @@ import "../styles/question.css";
 import { setupEditor } from "./components/editorPanel";
 import { clamp } from "./utils";
 import { setupQuestionPanel } from "./components/questionPanel";
-import { setupControls } from "./components/draggable-widgets/constrols";
+import { setupControls } from "./components/draggable-widgets/controls";
 
 function setupPanels() {
   vertical_handle.addEventListener("mousedown", e => {
@@ -32,10 +32,7 @@ function setupPanels() {
   horizontal_handle.addEventListener("mousedown", e => {
     e.preventDefault();
     const onMouseMove = event => {
-      let gridPercentage = ((event.clientY - 60 - 12) / (window.innerHeight - 60)) * 100;
-      if (gridPercentage < 20 || gridPercentage > 80) return;
-      horizontal_handle.style.top = `calc(${event.clientY - 12}px)`;
-      content.style.gridTemplateRows = `${gridPercentage}% auto`;
+      updateHandleAndGridRows(event.clientY);
     };
     window.addEventListener("mousemove", onMouseMove);
     const onMouseRemoved = () => {
@@ -45,10 +42,21 @@ function setupPanels() {
   });
 }
 
-const vertical_handle = document.querySelector(".vertical-handle");
-const horizontal_handle = document.querySelector(".horizontal-handle");
+function updateHandleAndGridRows(mouseY) {
+  let gridPercentage = ((mouseY - HEADER_HEIGHT) / (window.innerHeight - HEADER_HEIGHT)) * 100;
+  if (gridPercentage < 20 || gridPercentage > 80) return;
+  horizontal_handle.style.top = `calc(${mouseY}px)`;
+  content.style.gridTemplateRows = `${gridPercentage}% auto`;
+}
+
+const vertical_handle = document.querySelector("div.handle.vertical");
+const horizontal_handle = document.querySelector("div.handle.horizontal");
 const content = document.querySelector("main");
+const HEADER_HEIGHT = 60; // TODO: Get this value from CSS variable
+const initialY = 0.8 * (window.innerHeight - HEADER_HEIGHT);
+
 setupPanels();
+updateHandleAndGridRows(initialY);
 setupEditor();
 setupQuestionPanel();
 setupControls();

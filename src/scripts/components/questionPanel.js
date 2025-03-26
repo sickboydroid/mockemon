@@ -1,6 +1,6 @@
 import { getQuestionById } from "../problemsHelper";
 
-const question = document.querySelector("div.question");
+const question = document.querySelector("div.question-content");
 
 export function setupQuestionPanel() {
   let id = Math.floor(Math.random() * 100) + 1;

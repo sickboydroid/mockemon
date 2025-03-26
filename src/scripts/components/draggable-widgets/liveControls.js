@@ -10,7 +10,7 @@ const pointerControl = document.querySelector(".pointer");
   })
 );
 export function setupLiveControls() {
-  interact(".drag-indicator").draggable({
+  interact(".drag-handle").draggable({
     inertia: true,
     modifiers: [
       interact.modifiers.restrictRect({
@@ -28,7 +28,7 @@ export function setupLiveControls() {
   });
 
   function dragMoveListener(event) {
-    var target = document.querySelector(".draggable-widget");
+    var target = document.querySelector(".live-controls");
     var x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
     var y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
     target.style.transform = "translate(" + x + "px, " + y + "px)";
