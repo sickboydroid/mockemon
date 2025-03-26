@@ -92,7 +92,7 @@ export function setupLiveControls() {
       inertia: true,
       modifiers: [
         interact.modifiers.restrictRect({
-          restriction: "parent",
+          restriction: document.querySelector(".content"),
         }),
       ],
     });
