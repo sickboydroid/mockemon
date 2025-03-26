@@ -1,8 +1,10 @@
-import "../styles/main.css";
-import "../styles/question.css";
 import "../styles/reset.css";
+import "../styles/color.css";
+import "../styles/elements.css";
 import "../styles/header.css";
+import "../styles/main.css";
 import "../styles/controls.css";
+import "../styles/question.css";
 
 import { setupEditor } from "./components/editorPanel";
 import { clamp } from "./utils";
@@ -45,7 +47,7 @@ function setupPanels() {
 
 const vertical_handle = document.querySelector(".vertical-handle");
 const horizontal_handle = document.querySelector(".horizontal-handle");
-const content = document.querySelector(".content");
+const content = document.querySelector("main");
 setupPanels();
 setupEditor();
 setupQuestionPanel();

@@ -1,14 +1,3 @@
-* {
-  /* border: 2px solid black; */
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
-}
-
 @font-face {
   font-family: "Menlo";
   src: url("../../assets/fonts/Menlo-Regular.ttf") format("truetype");
@@ -16,84 +5,71 @@ body {
   font-style: normal;
 }
 
-.compiler {
+:root {
+  --grid-gap: 12px;
+  --header-height: 60px;
+}
+
+body {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: large;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.controls {
-  background-color: pink;
-}
-
-.editor-container {
-  position: relative;
-  .editor {
-    height: 100%;
-  }
-}
-
-.content {
-  display: grid;
+main {
   height: 100%;
+  display: grid;
   grid-template-columns: 40% auto;
   grid-template-rows: 80% auto;
-  gap: 24px 24px;
+  gap: var(--grid-gap);
+
+  /* Editor */
+  .editor-container {
+    position: relative; /* for the new question button */
+    .editor {
+      height: 100%;
+    }
+  }
+
+  /* Compiler */
+  .compiler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+  }
 }
 
 .handle {
   position: absolute;
-  background-color: black;
-}
+  background-color: var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.vertical-handle {
-  cursor: col-resize;
-  width: 24px;
-  height: calc(100% - 60px);
-  left: 40%;
-  top: 60px;
-}
-
-.horizontal-handle {
-  cursor: row-resize;
-  height: 24px;
-  width: 60%;
-  top: calc(80% + 12px);
-  right: 0%;
-}
-
-/* CSS */
-button {
-  --bg-color: white;
-  --bg-color-hover: rgb(217, 217, 218);
-  --bg-color-active: rgb(214, 214, 214);
-  background-color: var(--bg-color);
-  border: 0;
-  border-radius: 0.5rem;
-  box-sizing: border-box;
-  color: #111827;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.25rem;
-  padding: 0.75rem 1rem;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  transition: background-color 250ms;
-
-  &:hover {
-    background-color: var(--bg-color-hover);
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  & .drag-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: -5px; /* fixme: get new svg whose handle is already centered (vertical handle) */
+    background-image: var(--icon);
+    background-repeat: no-repeat;
   }
 
-  &:focus-visible {
-    box-shadow: none;
+  &.vertical-handle {
+    --icon: url("../../assets/icons/drag_handle_vertical.svg");
+    width: var(--grid-gap);
+    height: calc(100% - var(--header-height));
+    left: 40%;
+    top: var(--header-height);
+    cursor: col-resize;
   }
 
-  &:active {
-    background-color: var(--bg-color-active);
+  &.horizontal-handle {
+    --icon: url("../../assets/icons/drag_handle_horizontal.svg");
+    width: calc(60% - var(--grid-gap));
+    height: var(--grid-gap);
+    top: calc(80% + var(--grid-gap));
+    right: 0;
+    cursor: row-resize;
   }
 }
