@@ -1,34 +1,31 @@
 button {
   --bg-color: white;
-  --bg-color-hover: rgb(217, 217, 218);
-  --bg-color-active: rgb(214, 214, 214);
-  background-color: var(--bg-color);
-  border: 0;
-  border-radius: 0.5rem;
-  box-sizing: border-box;
-  color: #111827;
+  --bg-color-hover: #d9d9da;
+  --bg-color-active: #d6d6d6;
+  user-select: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  line-height: 1.25rem;
   font-size: 0.875rem;
   font-weight: 600;
-  line-height: 1.25rem;
-  padding: 0.75rem 1rem;
+  background-color: var(--bg-color);
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
   transition: background-color 250ms;
 
   &:hover {
     background-color: var(--bg-color-hover);
-    box-shadow: 2px 4px 1x2px rgba(0, 0, 0, 0.25);
-  }
-
-  &:focus-visible {
-    box-shadow: none;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
   }
 
   &:active {
     background-color: var(--bg-color-active);
+    box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  &:focus-visible {
+    box-shadow: none;
   }
 }
 
