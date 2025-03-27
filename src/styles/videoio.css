@@ -1,0 +1,31 @@
+.video-container {
+  --width: 320px;
+  position: absolute;
+  user-select: none;
+  min-width: 320px;
+  min-height: auto;
+  aspect-ratio: 16 / 9;
+  left: calc(
+    100% - var(--width)
+  ); /* you can use 'right: 0' but that messes up the interactjs as it only modifies left */
+  top: calc(0% + var(--header-height));
+
+  .video-in {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    background-color: lightblue;
+  }
+
+  .video-out {
+    position: absolute;
+    height: 90px;
+    width: 160px;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    right: 0;
+    bottom: 0;
+    background-color: lightcoral;
+  }
+}

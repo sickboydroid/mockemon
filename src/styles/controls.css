@@ -1,144 +1,94 @@
-.video-container {
-  position: absolute;
-  user-select: none;
-  height: 180px;
-  width: 320px;
-  left: 80%;
-  top: 20%;
-  background-color: red;
-
-  .video-in {
-    width: 100%;
-    height: 100%;
-    background-color: lightblue;
-  }
-  .video-out {
-    position: absolute;
-    height: 90px;
-    width: 160px;
-    top: calc(100% - 90px);
-    left: calc(100% - 160px);
-    background-color: lightcoral;
-  }
-}
-
-.icon {
-  border-radius: 100%;
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-  background-color: var(--normal-bg-color);
-  transition: background-color 250ms;
-  background-image: var(--control-icon);
-  background-repeat: no-repeat;
-  background-position: center;
-  padding: 0px;
-  --normal-bg-color: #f8d7da;
-  --hover-bg-color: #e57373;
-  --active-bg-color: #c62828;
-  &:hover {
-    background-color: var(--hover-bg-color);
-  }
-
-  &:active {
-    background-color: var(--active-bg-color);
-  }
-}
-
 .live-controls {
-  user-select: none;
+  --controls-height: 60px;
   position: absolute;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px 0px 0.931014px 0px, rgba(0, 0, 0, 0.08) 0px 0px 3.12708px 0px,
-    rgba(0, 0, 0, 0.05) 0px 7px 14px 0px;
-  height: 60px;
-  left: 40%;
+  user-select: none;
+  height: var(--controls-height);
   top: 90%;
+  left: calc(50% - 120px);
+  padding: 20px 20px 20px 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  padding-left: 6px;
+  gap: 12px;
   background-color: white;
-  gap: 6px;
-  padding-right: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-radius: 0.5rem;
+  box-shadow: #00000033 0px 0px 1px, #0000001a 0px 0px 3.5px, #0000000d 0px 7px 14px;
 
-  & .on {
-    --normal-bg-color: #d4edda;
-    --hover-bg-color: #a1d6a2;
-    --active-bg-color: #60c465;
-  }
   & .drag-handle {
     background-image: url("../../assets/icons/drag_indicator.svg");
     background-repeat: no-repeat;
-    background-position: left center;
-    width: 22px;
-    height: 44px;
+    background-position: center;
+    width: 24px;
+    height: 48px;
+  }
+
+  .pointer,
+  .audio,
+  .video {
+    --normal-bg-color: #f8d7da;
+    --hover-bg-color: #e57373;
+    --active-bg-color: #c62828;
+
+    &.on {
+      --normal-bg-color: #d4edda;
+      --hover-bg-color: #a1d6a2;
+      --active-bg-color: #60c465;
+    }
   }
 
   & .pointer {
-    --control-icon: url("../../assets/icons/pointer_off.svg");
+    --icon: url("../../assets/icons/pointer_off.svg");
     &.on {
-      --control-icon: url("../../assets/icons/pointer_on.svg");
+      --icon: url("../../assets/icons/pointer_on.svg");
     }
   }
   & .audio {
-    --control-icon: url("../../assets/icons/mic_off.svg");
+    --icon: url("../../assets/icons/mic_off.svg");
     &.on {
-      --control-icon: url("../../assets/icons/mic_on.svg");
+      --icon: url("../../assets/icons/mic_on.svg");
     }
   }
   & .video {
-    --control-icon: url("../../assets/icons/videocam_off.svg");
+    --icon: url("../../assets/icons/videocam_off.svg");
     &.on {
-      --control-icon: url("../../assets/icons/videocam_on.svg");
+      --icon: url("../../assets/icons/videocam_on.svg");
     }
   }
 }
 
 .question-controls {
   position: absolute;
-  left: calc(100% - 90px);
-  top: 85%;
+  bottom: 0;
+  right: 0;
+  transform: translate(-40px, -70px);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px;
 
   & .change-question {
-    box-shadow: rgba(0, 0, 0, 0.17) 0px 0px 0.931014px 0px,
-      rgba(0, 0, 0, 0.08) 0px 0px 3.12708px 0px, rgba(0, 0, 0, 0.05) 0px 7px 14px 0px;
-    --control-icon: url("../../assets/icons/change_question.svg");
-    --normal-bg-color: white;
-    --hover-bg-color: #a1d6a2;
-    --active-bg-color: #84d488;
-    padding: 5px;
+    --icon: url("../../assets/icons/change_question.svg");
+    box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.25);
   }
 }
 
 .code-controls {
   position: absolute;
-  left: calc(100% - 180px);
-  top: calc(100% - 60px);
+  right: 0;
+  bottom: 0;
+  margin: 16px;
   display: flex;
   flex-direction: row;
-  font-family: inherit;
-  gap: 6px;
-  padding: 5px;
-  font-size: 1.2rem;
+  gap: 8px;
 
   .submit {
     --bg-color: rgb(245, 199, 182);
     --bg-color-hover: rgb(240, 177, 155);
     --bg-color-active: rgb(247, 156, 123);
-    color: rgb(92, 61, 50);
   }
 
   .run {
     --bg-color: rgb(180, 247, 180);
     --bg-color-hover: rgb(141, 238, 141);
     --bg-color-active: rgb(97, 247, 97);
-    color: rgb(33, 80, 33);
   }
 }

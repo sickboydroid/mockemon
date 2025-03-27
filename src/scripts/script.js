@@ -5,11 +5,13 @@ import "../styles/header.css";
 import "../styles/main.css";
 import "../styles/controls.css";
 import "../styles/question.css";
+import "../styles/videoio.css";
 
 import { setupEditor } from "./components/editorPanel";
 import { clamp } from "./utils";
 import { setupQuestionPanel } from "./components/questionPanel";
 import { setupControls } from "./components/draggable-widgets/controls";
+import { setupVideoIO } from "./components/draggable-widgets/videoIO";
 
 function setupPanels() {
   vertical_handle.addEventListener("mousedown", e => {
@@ -60,3 +62,4 @@ updateHandleAndGridRows(initialY);
 setupEditor();
 setupQuestionPanel();
 setupControls();
+setupVideoIO();
