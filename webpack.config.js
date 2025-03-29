@@ -1,6 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+// const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
   mode: "development", // Set mode to development for better debugging
@@ -37,14 +37,14 @@ module.exports = {
       },
     ],
   },
-
   plugins: [
-    new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
-      template: "src/index.html", // Use the HTML template
+      template: "src/index.html",
     }),
-  ],
 
+    // Only enable the analyzer in development mode
+    // new BundleAnalyzerPlugin(),
+  ],
   devtool: "source-map", // Generate source maps for easier debugging
 
   devServer: {
