@@ -1,0 +1,5 @@
+{
+  "name": "mockemon",
+  "main": "public/bundle.js",
+  "compatibility_date": "2025-03-29"
+}
