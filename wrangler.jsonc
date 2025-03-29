@@ -1,6 +1,5 @@
 {
   "name": "my-worker",
   "main": "public/bundle.js",
-  "compatibility_date": "2025-29-03",
-  "workers_dev": false
+  "compatibility_date": "2025-03-29"
 }
