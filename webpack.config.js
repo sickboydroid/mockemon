@@ -16,11 +16,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, // Apply Babel to JavaScript files
-        exclude: /node_modules/,
-        use: "babel-loader",
-      },
-      {
         test: /\.css$/, // Process CSS files
         use: ["style-loader", "css-loader"],
       },
