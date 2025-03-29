@@ -1,0 +1,6 @@
+name = "mockemon"
+main = "./worker.js"
+compatibility_date = "2025-03-29"
+
+[site]
+bucket = "./public"  # Where Webpack outputs the frontend
