@@ -3,7 +3,7 @@
  * I might change the way questions are fetched in future
  */
 
-import QuestionsJSON from "../../assets/questions.json";
+import QuestionsJSON from "../../assets/sample-questions.json";
 
 function parseJSON() {
   console.log(QuestionsJSON["1"]);
