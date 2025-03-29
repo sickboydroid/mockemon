@@ -25,9 +25,14 @@ export default {
     }
 
     // Default 404 Response
-    return new Response(JSON.stringify({ error: "Not found" }), {
-      status: 404,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({
+        error: "Not found, you can use 'status', 'time', 'echo' end points for now",
+      }),
+      {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   },
 };
