@@ -8,7 +8,7 @@ module.exports = {
   entry: "./src/scripts/script.js", // Entry point of the application
 
   output: {
-    path: path.resolve(__dirname, "dist"), // Output directory
+    path: path.resolve(__dirname, "public"), // Output directory
     filename: "bundle.js", // Output JS filename
     clean: true, // Clean dist folder before each build
   },
