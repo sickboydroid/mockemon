@@ -49,3 +49,5 @@ coverage/
 # Miscellaneous
 *.tar.gz
 *.zip
+.vercel
+.env*.local

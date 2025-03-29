@@ -16,11 +16,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, // Apply Babel to JavaScript files
-        exclude: /node_modules/,
-        use: "babel-loader",
-      },
-      {
         test: /\.css$/, // Process CSS files
         use: ["style-loader", "css-loader"],
       },
@@ -48,8 +43,8 @@ module.exports = {
   devtool: "source-map", // Generate source maps for easier debugging
 
   devServer: {
-    static: "./dist", // Serve static files from dist directory
-    port: 3005, // Port number for the dev server
+    static: "./public", // Serve static files from dist directory
+    port: 3000, // Port number for the dev server
     open: true, // Open browser automatically
     hot: true, // Enable Hot Module Replacement (HMR)
     watchFiles: ["src/**/*.*", "assets/**/*.svg"], // Watch for changes in HTML files
