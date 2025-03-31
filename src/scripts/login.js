@@ -6,7 +6,7 @@ import "../../assets/fonts/Menlo-Regular.ttf";
 
 import { connectAuthEmulator } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
-import { getFirebaseApp, getFirebaseAuth } from "./firebase/firebase-state";
+import { getFirebaseApp, getFirebaseAuth } from "./firebase/firebaseHelper";
 
 function displayLoginError(error) {
   const errorMessage = document.querySelector(".error-message");
