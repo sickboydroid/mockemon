@@ -1,4 +1,3 @@
-import "../styles/color.css";
 import "../styles/reset.css";
 import "../styles/color.css";
 import "../styles/elements.css";
