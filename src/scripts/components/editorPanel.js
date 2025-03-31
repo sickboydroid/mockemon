@@ -2,6 +2,7 @@ import { EditorView } from "@codemirror/view";
 import { autocompletion } from "@codemirror/autocomplete";
 import { basicSetup } from "codemirror";
 import { javascript } from "@codemirror/lang-javascript";
+
 import {} from "@codemirror/commands";
 
 export function setupEditor() {
