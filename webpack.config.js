@@ -1,52 +1,69 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  mode: "development", // Set mode to development for better debugging
+  mode: "development",
 
-  entry: "./src/scripts/script.js", // Entry point of the application
+  entry: {
+    login: "./src/scripts/login.js",
+    home: "./src/scripts/home.js",
+    meeting: "./src/scripts/meeting.js",
+  },
 
   output: {
-    path: path.resolve(__dirname, "public"), // Output directory
-    filename: "bundle.js", // Output JS filename
-    clean: true, // Clean dist folder before each build
+    path: path.resolve(__dirname, "public"),
+    filename: "[name].bundle.js",
+    clean: true,
   },
 
   module: {
     rules: [
       {
-        test: /\.css$/, // Process CSS files
+        test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/i, // Handle image assets
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
         type: "asset/resource",
       },
       {
-        test: /\.(ttf|woff|woff2|eot|otf)$/, // Match font files
-        type: "asset/resource", // Webpack 5 handles assets natively
+        test: /\.(ttf|woff|woff2|eot|otf)$/,
+        type: "asset/resource",
         generator: {
-          filename: "fonts/[name][ext]", // Output folder for fonts
+          filename: "fonts/[name][ext]",
         },
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "src/index.html",
-    }),
 
-    // Only enable the analyzer in development mode
-    // new BundleAnalyzerPlugin(),
+  plugins: [
+    new Dotenv(),
+    new HtmlWebpackPlugin({
+      filename: "login.html",
+      template: "src/html/login.html",
+      chunks: ["login"],
+    }),
+    new HtmlWebpackPlugin({
+      filename: "home.html",
+      template: "src/html/home.html",
+      chunks: ["home"],
+    }),
+    new HtmlWebpackPlugin({
+      filename: "meeting.html",
+      template: "src/html/meeting.html",
+      chunks: ["meeting"],
+    }),
   ],
-  devtool: "source-map", // Generate source maps for easier debugging
+
+  devtool: "source-map",
 
   devServer: {
-    static: "./dist", // Serve static files from dist directory
-    port: 3005, // Port number for the dev server
-    open: true, // Open browser automatically
-    hot: true, // Enable Hot Module Replacement (HMR)
-    watchFiles: ["src/**/*.*", "assets/**/*.svg"], // Watch for changes in HTML files
+    static: "./public",
+    port: 3005,
+    open: "login.html",
+    hot: true,
+    historyApiFallback: true,
+    watchFiles: ["src/**/*.*", "assets/**/*.svg"],
   },
 };
