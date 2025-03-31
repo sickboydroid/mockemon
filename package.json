@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "private": "true",
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "build": "webpack --mode development"
   },
   "author": "sickboy",
   "license": "MIT",
@@ -15,17 +14,20 @@
     "@codemirror/language": "^6.11.0",
     "@codemirror/search": "^6.5.10",
     "@codemirror/view": "^6.36.4",
+    "animate.css": "^4.1.1",
     "codemirror": "^6.0.1",
-    "interactjs": "^1.10.27"
+    "interactjs": "^1.10.27",
+    "sweetalert2": "^11.17.2"
   },
   "devDependencies": {
     "css-loader": "^7.1.2",
+    "dotenv-webpack": "^8.1.0",
     "file-loader": "^6.2.0",
+    "firebase": "^11.5.0",
     "html-webpack-plugin": "^5.6.3",
     "style-loader": "^4.0.0",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.0",
-    "wrangler": "^4.6.0"
+    "webpack-dev-server": "^5.2.0"
   }
 }
