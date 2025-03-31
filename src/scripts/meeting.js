@@ -1,3 +1,4 @@
+import "../styles/color.css";
 import "../styles/reset.css";
 import "../styles/color.css";
 import "../styles/elements.css";
@@ -7,8 +8,8 @@ import "../styles/controls.css";
 import "../styles/question.css";
 import "../styles/videoio.css";
 
-import { setupEditor } from "./components/editorPanel";
 import { clamp } from "./utils";
+import { setupEditor } from "./components/editorPanel";
 import { setupQuestionPanel } from "./components/questionPanel";
 import { setupControls } from "./components/draggable-widgets/controls";
 import { setupVideoIO } from "./components/draggable-widgets/videoIO";
@@ -66,8 +67,8 @@ const HEADER_HEIGHT = 60; // TODO: Get this value from CSS variable
 
 updateGridLayout();
 setupPanels();
-setupEditor();
 setupQuestionPanel();
 setupControls();
 setupVideoIO();
+setupEditor();
 window.addEventListener("resize", updateGridLayout);
