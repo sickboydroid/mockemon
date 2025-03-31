@@ -4,7 +4,7 @@ import {
   getFirebaseFirestore,
   getFirebaseAuth,
   getFirebaseRealtimeDB,
-} from "./firebase/firebase-state";
+} from "./firebase/firebaseHelper";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { ref, set, get, onValue, off } from "firebase/database";
