@@ -34,6 +34,20 @@
   --warning: #ffc107; /* Warning messages */
   --error: #dc3545; /* Error messages */
   --info: #17a2b8; /* Informational messages */
+
+  /* Light Shades */
+  --gray-100: #f8f9fa; /* Very Light Gray */
+  --gray-200: #e0e0e0; /* Light Gray */
+  --gray-300: #cecece; /* Soft Silver Gray */
+
+  /* Medium Shades */
+  --gray-400: #9e9e9e; /* Medium Gray */
+  --gray-500: #6c757d; /* Slate Gray */
+  --gray-600: #495057; /* Charcoal Gray */
+
+  /* Dark Shades */
+  --gray-700: #343a40; /* Gunmetal Gray */
+  --gray-800: #212529; /* Jet Black Gray */
 }
 
 /* ===== Dark Theme ===== */

@@ -1,6 +1,13 @@
+@font-face {
+  font-family: "Menlo";
+  src: url("../../assets/fonts/Menlo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 button {
   --bg-color: white;
-  --bg-color-hover: #d9d9da;
+  --bg-color-hover: #ebebeb;
   --bg-color-active: #d6d6d6;
   user-select: none;
   cursor: pointer;
@@ -11,21 +18,25 @@ button {
   font-size: 0.875rem;
   font-weight: 600;
   background-color: var(--bg-color);
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15);
   transition: background-color 250ms;
 
   &:hover {
     background-color: var(--bg-color-hover);
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
   }
 
   &:active {
     background-color: var(--bg-color-active);
-    box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.25);
   }
 
   &:focus-visible {
     box-shadow: none;
+  }
+
+  &:disabled {
+    background-color: var(--disabled);
+    opacity: 0.6;
+    pointer-events: none;
   }
 }
 
