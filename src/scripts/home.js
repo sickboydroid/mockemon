@@ -7,7 +7,7 @@ import {
 } from "./firebase/firebaseHelper";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDoc, doc, getDocs, setDoc } from "firebase/firestore";
-import { ref, set, get, onValue, off } from "firebase/database";
+import { ref, set, get, onValue, off, child } from "firebase/database";
 import "../styles/reset.css";
 import "../styles/header.css";
 import "../styles/color.css";
@@ -49,11 +49,11 @@ function showJoiningAlert() {
   });
 }
 
-function onLocalIceCandidateUpdate(event, sessionRef) {
-  const iceCandidatesRef = child(sessionRef, iceCandidatesRef);
+async function onLocalIceCandidateUpdate(event, sessionRef) {
+  const iceCandidatesRef = child(sessionRef, 'iceCandidates');
   if (event.candidate) {
     console.log("Added newly found iceCandidate", event.candidate);
-    set(child(iceCandidatesRef, event.candidate), true);
+    await set(child(iceCandidatesRef, event.candidate), true);
   }
 }
 
@@ -72,11 +72,11 @@ function onRemoteIceCandidateUpdate(snapshot) {
 
 async function setupWebRTCAsCaller() {
   const sessionRef = ref(database, "sessions/" + user.uid);
-  const calleeUID = get(child(sessionRef, "callee"));
+  const calleeUID = (await get(child(sessionRef, "callee"))).val();
   const calleeSessionRef = ref(database, "sessions/" + calleeUID);
   const peerConnection = new RTCPeerConnection(webRTCConfig);
-  peerConnection.addEventListener("icecandidate", event =>
-    onLocalIceCandidateUpdate(event, sessionRef)
+  peerConnection.addEventListener("icecandidate", async event =>
+    await onLocalIceCandidateUpdate(event, sessionRef)
   );
 
   peerConnection.addEventListener("connectionstatechange", () => {
@@ -90,7 +90,7 @@ async function setupWebRTCAsCaller() {
 
   const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
-  set(child(sessionRef, "sdp"), offer);
+  await set(child(sessionRef, "sdp"), offer);
   const calleeIceCandidatesRef = child(calleeSessionRef, "iceCandidates");
   const calleeSDPRef = child(calleeSessionRef, "sdp");
   onValue(calleeSDPRef, async snapshot => {
@@ -102,22 +102,21 @@ async function setupWebRTCAsCaller() {
   onValue(calleeIceCandidatesRef, onRemoteIceCandidateUpdate);
 }
 
-function setupWebRTCAsCallee() {
+async function setupWebRTCAsCallee() {
   const sessionRef = ref(database, "sessions/" + user.uid);
   const sdpRef = child(sessionRef, "sdp");
-  const iceCandidatesRef = child(sessionRef, "iceCandidates");
-  const callerUID = get(child(sessionRef, "caller"));
+  const callerUID = (await get(child(sessionRef, "caller"))).val();
   const callerSessionRef = ref(database, "sessions/" + callerUID);
-  const callerSDP = get(child(callerSessionRef, "sdp"));
-  const callerIceCandidates = get(child(callerSessionRef, "iceCandidates"));
+  const callerSDPRef = child(callerSessionRef, "sdp");
+  const callerIceCandidatesRef = child(callerSessionRef, "iceCandidates");
   const peerConnection = new RTCPeerConnection(webRTCConfig);
-  onValue(callerSDP, async snapshot => {
+  onValue(callerSDPRef, async snapshot => {
     if (!snapshot.exists()) return;
     const remoteSDP = snapshot.val();
     await peerConnection.setRemoteDescription(new RTCSessionDescription(remoteSDP));
     const answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
-    set(sdpRef, answer);
+    await set(sdpRef, answer);
     console.log("callee: Received offer and sent answer");
   });
 
@@ -130,24 +129,26 @@ function setupWebRTCAsCallee() {
     }
   });
 
-  onValue(callerIceCandidates, onRemoteIceCandidateUpdate);
-  onValue(iceCandidatesRef, onLocalIceCandidateUpdate);
+  onValue(callerIceCandidatesRef, onRemoteIceCandidateUpdate);
+  peerConnection.addEventListener("icecandidate", event =>
+    onLocalIceCandidateUpdate(event, sessionRef)
+  );
 }
 
 function createAndListenUserSession() {
   const userSessionRef = ref(database, "sessions/" + user.uid + "/role");
   // set(userSessionRef, "offer");
-  const unsubscribe = onValue(userSessionRef, snapshot => {
+  const unsubscribe = onValue(userSessionRef, async snapshot => {
     const data = snapshot.val();
     if (!snapshot.exists()) {
       console.log("No data exists yet");
     } else if (data === "caller") {
       console.log("C  urrent user is acting as the caller");
-      setupWebRTCAsCaller();
+      await setupWebRTCAsCaller();
       unsubscribe();
     } else if (data === "calle") {
       console.log("Current user is acting as the callee");
-      setupWebRTCAsCallee();
+      await setupWebRTCAsCallee();
       unsubscribe();
     }
   });
