@@ -12,28 +12,32 @@ import { setupEditor } from "./components/editorPanel";
 import { setupQuestionPanel } from "./components/questionPanel";
 import { setupControls } from "./components/draggable-widgets/controls";
 import { setupVideoIO } from "./components/draggable-widgets/videoIO";
+import { connect } from "./connection/connectionManager";
 
 function setupPanels() {
-  vertical_handle.addEventListener("mousedown", e => {
+  vertical_handle.addEventListener("mousedown", (e) => {
     e.preventDefault();
-    const onMouseMove = event => updateGridCols(event.clientX);
+    const onMouseMove = (event) => updateGridCols(event.clientX);
     window.addEventListener("mousemove", onMouseMove);
-    const onMouseRemoved = () => window.removeEventListener("mousemove", onMouseMove);
+    const onMouseRemoved = () =>
+      window.removeEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseRemoved);
   });
 
-  horizontal_handle.addEventListener("mousedown", e => {
+  horizontal_handle.addEventListener("mousedown", (e) => {
     e.preventDefault();
-    const onMouseMove = event => updateHandleAndGridRows(event.clientY);
+    const onMouseMove = (event) => updateHandleAndGridRows(event.clientY);
     window.addEventListener("mousemove", onMouseMove);
-    const onMouseRemoved = () => window.removeEventListener("mousemove", onMouseMove);
+    const onMouseRemoved = () =>
+      window.removeEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseRemoved);
   });
 }
 
 function updateHandleAndGridRows(mouseY) {
   // TODO: When rejecting value to mouseY, animate color of handle
-  let gridPercentage = ((mouseY - HEADER_HEIGHT) / (window.innerHeight - HEADER_HEIGHT)) * 100;
+  let gridPercentage =
+    ((mouseY - HEADER_HEIGHT) / (window.innerHeight - HEADER_HEIGHT)) * 100;
   if (gridPercentage < 20 || gridPercentage > 80) return;
   horizontal_handle.style.top = `calc(${mouseY}px)`;
   content.style.gridTemplateRows = `${gridPercentage}% auto`;
@@ -71,3 +75,4 @@ setupControls();
 setupVideoIO();
 setupEditor();
 window.addEventListener("resize", updateGridLayout);
+connect();
