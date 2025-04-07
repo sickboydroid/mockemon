@@ -22,18 +22,18 @@ export function getFirebaseApp() {
 
 export function getFirebaseFirestore() {
   const firestore = getFirestore(firebase);
-  connectFirestoreEmulator(firestore, "localhost", 8080);
+  connectFirestoreEmulator(firestore, "localhost", 9006);
   return firestore;
 }
 
 export function getFirebaseAuth() {
   const auth = getAuth(firebase);
-  connectAuthEmulator(auth, "http://localhost:9099");
+  connectAuthEmulator(auth, "http://localhost:9001");
   return auth;
 }
 
 export function getFirebaseRealtimeDB() {
   const realtimeDB = getDatabase(firebase);
-  connectDatabaseEmulator(realtimeDB, "localhost", 9000);
+  connectDatabaseEmulator(realtimeDB, "localhost", 9003);
   return realtimeDB;
 }
