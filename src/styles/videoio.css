@@ -10,6 +10,10 @@
   ); /* you can use 'right: 0' but that messes up the interactjs as it only modifies left */
   top: calc(0% + var(--header-height));
 
+  video {
+    display: block;
+  }
+
   .video-in {
     width: 100%;
     height: 100%;
