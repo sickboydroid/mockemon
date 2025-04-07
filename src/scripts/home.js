@@ -43,119 +43,31 @@ function showJoiningAlert() {
     hideClass: {
       popup: "animate__animated animate__fadeOut animate-very-fast",
     },
-    didClose: () => {
-      console.log("closed");
-    },
+    didClose: () => {},
   });
 }
 
-async function onLocalIceCandidateUpdate(event, sessionRef) {
-  const iceCandidatesRef = child(sessionRef, 'iceCandidates');
-  if (event.candidate) {
-    console.log("Added newly found iceCandidate", event.candidate);
-    await set(child(iceCandidatesRef, event.candidate), true);
-  }
-}
-
-function onRemoteIceCandidateUpdate(snapshot) {
-  const iceCandidates = snapshot.val();
-  if (!snapshot.exists()) return;
-  console.log(typeof iceCandidates);
-  Object.entries(iceCandidates).forEach((key, value) => {
-    if (remoteIceCandidates.has(key)) return;
-    peerConnection.addIceCandidate(key);
-    remoteIceCandidates.add(key);
-    console.log("New ice candidates added from remote", key);
-  });
-  peerConnection.addIceCandidate();
-}
-
-async function setupWebRTCAsCaller() {
-  const sessionRef = ref(database, "sessions/" + user.uid);
-  const calleeUID = (await get(child(sessionRef, "callee"))).val();
-  const calleeSessionRef = ref(database, "sessions/" + calleeUID);
-  const peerConnection = new RTCPeerConnection(webRTCConfig);
-  peerConnection.addEventListener("icecandidate", async event =>
-    await onLocalIceCandidateUpdate(event, sessionRef)
-  );
-
-  peerConnection.addEventListener("connectionstatechange", () => {
-    console.log("caller: connectionState=", peerConnection.connectionState);
-    if (peerConnection.connectionState === "connected") {
-      // Peers connected!
-      // You can start sending/receving data
-      console.log("caller: callee is connected");
-    }
-  });
-
-  const offer = await peerConnection.createOffer();
-  await peerConnection.setLocalDescription(offer);
-  await set(child(sessionRef, "sdp"), offer);
-  const calleeIceCandidatesRef = child(calleeSessionRef, "iceCandidates");
-  const calleeSDPRef = child(calleeSessionRef, "sdp");
-  onValue(calleeSDPRef, async snapshot => {
-    if (!snapshot.exists()) return;
-    const sdp = snapshot.val();
-    await peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
-    console.log("caller: remote sdp received and set");
-  });
-  onValue(calleeIceCandidatesRef, onRemoteIceCandidateUpdate);
-}
-
-async function setupWebRTCAsCallee() {
-  const sessionRef = ref(database, "sessions/" + user.uid);
-  const sdpRef = child(sessionRef, "sdp");
-  const callerUID = (await get(child(sessionRef, "caller"))).val();
-  const callerSessionRef = ref(database, "sessions/" + callerUID);
-  const callerSDPRef = child(callerSessionRef, "sdp");
-  const callerIceCandidatesRef = child(callerSessionRef, "iceCandidates");
-  const peerConnection = new RTCPeerConnection(webRTCConfig);
-  onValue(callerSDPRef, async snapshot => {
-    if (!snapshot.exists()) return;
-    const remoteSDP = snapshot.val();
-    await peerConnection.setRemoteDescription(new RTCSessionDescription(remoteSDP));
-    const answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
-    await set(sdpRef, answer);
-    console.log("callee: Received offer and sent answer");
-  });
-
-  peerConnection.addEventListener("connectionstatechange", () => {
-    console.log("callee: connectionState=", peerConnection.connectionState);
-    if (peerConnection.connectionState === "connected") {
-      // Peers connected!
-      // You can start sending/receving data
-      console.log("callee: callee is connected");
-    }
-  });
-
-  onValue(callerIceCandidatesRef, onRemoteIceCandidateUpdate);
-  peerConnection.addEventListener("icecandidate", event =>
-    onLocalIceCandidateUpdate(event, sessionRef)
-  );
-}
-
-function createAndListenUserSession() {
+async function createAndListenUserSession() {
   const userSessionRef = ref(database, "sessions/" + user.uid + "/role");
-  // set(userSessionRef, "offer");
-  const unsubscribe = onValue(userSessionRef, async snapshot => {
+  // TODO: only for debugging
+  await set(userSessionRef, {});
+  const unsubscribe = onValue(userSessionRef, (snapshot) => {
     const data = snapshot.val();
-    if (!snapshot.exists()) {
-      console.log("No data exists yet");
-    } else if (data === "caller") {
-      console.log("C  urrent user is acting as the caller");
-      await setupWebRTCAsCaller();
+    if (data === "caller") {
+      console.log("Current user is acting as the caller");
       unsubscribe();
-    } else if (data === "calle") {
+      sessionStorage.setItem("role", "caller");
+      window.location.href = "/meeting.html";
+    } else if (data === "callee") {
       console.log("Current user is acting as the callee");
-      await setupWebRTCAsCallee();
       unsubscribe();
+      sessionStorage.setItem("role", "callee");
+      window.location.href = "/meeting.html";
     }
   });
 }
 
 async function addUserToMeeting() {
-  console.log("Adding user to meeting");
   if (!user) {
     console.log("User is null, cancelling");
     return;
@@ -163,12 +75,11 @@ async function addUserToMeeting() {
   const docRef = doc(firestore, "joined_users", user.uid);
   const userRef = await getDoc(docRef);
   createAndListenUserSession();
-  console.log(userRef);
   if (!userRef.exists()) {
     await setDoc(docRef, {});
-    console.log("User added!");
+    console.log("User has been added to meeting");
   } else {
-    console.log("User already exists!");
+    console.log("User is already present in meeting");
     // TODO: Delete the already added user and create new one
   }
 }
@@ -181,27 +92,17 @@ const firebase = getFirebaseApp();
 const auth = getFirebaseAuth();
 const firestore = getFirebaseFirestore();
 const database = getFirebaseRealtimeDB();
-const remoteIceCandidates = new Set();
-const webRTCConfig = {
-  iceServers: [
-    { urls: "stun:stun.l.google.com:19302" },
-    { urls: "stun:stun1.l.google.com:19302" },
-    { urls: "stun:stun2.l.google.com:19302" },
-    { urls: "stun:stun3.l.google.com:19302" },
-    { urls: "stun:stunserver.org" },
-  ],
-};
 let user = null;
 
-joinInterviewBtn.addEventListener("click", event => {
-  console.log("Joining Interview");
+joinInterviewBtn.addEventListener("click", (event) => {
   showJoiningAlert();
   addUserToMeeting();
 });
 
-onAuthStateChanged(auth, curUser => {
+onAuthStateChanged(auth, (curUser) => {
   if (curUser) {
     console.log("User UID:", curUser.uid);
+    sessionStorage.setItem("user_uid", curUser.uid);
     user = curUser;
   } else {
     window.location.href = "/login.html";
