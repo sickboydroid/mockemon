@@ -5,6 +5,7 @@ import {
   onLocalIceCandidateUpdate,
   onRemoteIceCandidateUpdate,
   setupVideoIO,
+  setupDataChannel,
 } from "./signallingHelper";
 import {
   ref,
@@ -24,6 +25,7 @@ async function setupWebRTCAsCaller() {
   const calleeSDPRef = child(calleeSessionRef, "sdp");
   const peerConnection = new RTCPeerConnection(webRTCConfig);
   await setupVideoIO(peerConnection);
+  setupDataChannel(peerConnection);
   const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
   await set(child(sessionRef, "sdp"), offer);

@@ -5,6 +5,7 @@ import {
   onLocalIceCandidateUpdate,
   onRemoteIceCandidateUpdate,
   setupVideoIO,
+  setupDataChannel,
 } from "./signallingHelper";
 
 import {
@@ -26,6 +27,7 @@ async function setupWebRTCAsCallee() {
   const callerIceCandidatesRef = child(callerSessionRef, "iceCandidates");
   const peerConnection = new RTCPeerConnection(webRTCConfig);
   await setupVideoIO(peerConnection);
+  setupDataChannel(peerConnection);
   onValue(callerSDPRef, async (snapshot) => {
     if (!snapshot.exists()) return;
     const remoteSDP = snapshot.val();
