@@ -14,9 +14,6 @@
     <main>
       <div class="question-container">
         <div class="question-content"></div>
-        <div class="question-controls">
-          <div class="round-icon-btn change-question"></div>
-        </div>
       </div>
       <div class="editor-container">
         <div class="editor"></div>
@@ -38,10 +35,37 @@
 
     <!-- Controls -->
     <div class="live-controls">
-      <div class="drag-handle"></div>
-      <div class="pointer round-icon-btn on"></div>
-      <div class="audio round-icon-btn on"></div>
-      <div class="video round-icon-btn on"></div>
+      <div class="upper-controls">
+        <div class="drag-handle"></div>
+        <div class="swap-roles round-icon-btn on"></div>
+        <div class="pointer round-icon-btn on"></div>
+        <div class="audio round-icon-btn on"></div>
+        <div class="video round-icon-btn on"></div>
+        <div class="expand-controls round-icon-btn"></div>
+      </div>
+
+      <div class="lower-controls hidden">
+        <div>
+          <div class="row-1 hidden">
+            <div class="change-device">
+              <div class="icon camera"></div>
+              <div class="choices-container">
+                <select name="camera-list" id="camera-list"></select>
+              </div>
+            </div>
+            <div class="change-device">
+              <div class="icon mic"></div>
+              <div class="choices-container">
+                <select name="mic-list" id="mic-list"></select>
+              </div>
+            </div>
+          </div>
+          <div class="row-2 hidden">
+            <button>Change Question</button>
+            <button>End Session</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="video-container">

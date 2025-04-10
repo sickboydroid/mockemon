@@ -15,18 +15,18 @@ import { setupVideoIO } from "./components/draggable-widgets/videoIO";
 import { connect } from "./connection/connectionManager";
 
 function setupPanels() {
-  vertical_handle.addEventListener("mousedown", (e) => {
+  vertical_handle.addEventListener("mousedown", e => {
     e.preventDefault();
-    const onMouseMove = (event) => updateGridCols(event.clientX);
+    const onMouseMove = event => updateGridCols(event.clientX);
     window.addEventListener("mousemove", onMouseMove);
     const onMouseRemoved = () =>
       window.removeEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseRemoved);
   });
 
-  horizontal_handle.addEventListener("mousedown", (e) => {
+  horizontal_handle.addEventListener("mousedown", e => {
     e.preventDefault();
-    const onMouseMove = (event) => updateHandleAndGridRows(event.clientY);
+    const onMouseMove = event => updateHandleAndGridRows(event.clientY);
     window.addEventListener("mousemove", onMouseMove);
     const onMouseRemoved = () =>
       window.removeEventListener("mousemove", onMouseMove);
