@@ -28,11 +28,11 @@ export async function setupVideoIO(peerConnection) {
   videoOut.srcObject = localStream;
   localStream
     .getTracks()
-    .forEach((track) => peerConnection.addTrack(track, localStream));
+    .forEach(track => peerConnection.addTrack(track, localStream));
   console.log("Added audio/video tracks to remote");
 
   // receive remote tracks
-  peerConnection.addEventListener("track", async (event) => {
+  peerConnection.addEventListener("track", async event => {
     const [remoteStream] = event.streams;
     const videoIn = document.querySelector(".video-in");
     videoIn.srcObject = remoteStream;
@@ -44,9 +44,11 @@ export async function setupVideoIO(peerConnection) {
  * @param {RTCPeerConnection} peerConnection
  */
 export async function setupDataChannel(peerConnection) {
-  dataChannel = peerConnection.createDataChannel("data-channel");
-  peerConnection.ondatachannel = (event) => {
-    event.channel.onmessage = (msgEvent) => {
+  const liveControlsDataChannelLabel = "live-controls-data-channel";
+  dataChannel = peerConnection.createDataChannel(liveControlsDataChannelLabel);
+  peerConnection.ondatachannel = event => {
+    if (event.channel.label !== liveControlsDataChannelLabel) return;
+    event.channel.onmessage = msgEvent => {
       const data = JSON.parse(msgEvent.data);
       if ("videoPaused" in data) {
         const videoPaused = data["videoPaused"];
