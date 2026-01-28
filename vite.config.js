@@ -6,6 +6,20 @@ export default {
     emptyOutDir: true,
   },
   server: {
-    proxy: {},
+    proxy: {
+      // Any request starting with /api goes to backend
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        secure: false,
+      },
+      // Any web-socket request starting with /socket.io goes to backend
+      "/socket.io": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
+    },
   },
 };
