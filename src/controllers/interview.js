@@ -1,6 +1,5 @@
-import InterviewModel from "../models/interviewModel.js";
 import JoinedUserModel from "../models/joinedUserModel.js";
-import { io } from "../server.js";
+import { getIO } from "../sockets/sockets.js";
 
 const upcomingInterview = {
   startTime: new Date(2000, 0),
@@ -22,14 +21,11 @@ function setupNextInterview() {
   setTimeout(pairUsers, startTime - curTime);
 }
 
-// TODO: Keep watch in /onpair route and let user know he has been paried
 async function pairUsers() {
-  console.log("Pairing users");
   const joinedUsers = await JoinedUserModel.find({ is_paired: false }).sort({
     join_time: -1,
   });
-  console.log(joinedUsers);
-
+  console.log(`Pairing ${joinedUsers.length} users`);
   for (let i = 0; i < joinedUsers.length - 1; i += 2) {
     joinedUsers[i].role = "caller";
     joinedUsers[i].other = joinedUsers[i + 1].id;
@@ -40,32 +36,6 @@ async function pairUsers() {
     await joinedUsers[i].save();
     await joinedUsers[i + 1].save();
   }
-}
-
-// TODO: Make an event which asks other party to resend stuff
-export function setupSockets(callerSocketId, calleeSocketId) {
-  const callerIceCandidates = [];
-  const calleeIceCandidates = [];
-  const caller = io.sockets.sockets.get(callerSocketId);
-  const callee = io.sockets.sockets.get(calleeSocketId);
-  // TODO: For debuggings
-  // caller.onAny((eventName, ...args) => {
-  //   console.log("caller: ", eventName, args);
-  // });
-
-  // callee.onAny((eventName, ...args) => {
-  //   console.log("callee: ", eventName, args);
-  // });
-  caller.on("sdp", (sdp) => io.to(calleeSocketId).emit("sdp", sdp));
-  callee.on("sdp", (sdp) => io.to(callerSocketId).emit("sdp", sdp));
-  caller.on("ice-candidate", (iceCandidate) => {
-    callerIceCandidates.push(iceCandidate);
-    io.to(calleeSocketId).emit("ice-candidate", callerIceCandidates);
-  });
-  callee.on("ice-candidate", (iceCandidate) => {
-    calleeIceCandidates.push(iceCandidate);
-    io.to(callerSocketId).emit("ice-candidate", calleeIceCandidates);
-  });
 }
 
 export async function getInterviewStatus(req, res) {
@@ -87,6 +57,7 @@ export async function getInterviewStatus(req, res) {
     return getInterviewStatus(req, res);
   }
 }
+
 function isInterviewOngoing() {
   const curTime = new Date();
   return (
@@ -96,7 +67,7 @@ function isInterviewOngoing() {
 }
 
 export async function addUserToInterview(req, res) {
-  const userUID = req.body.user_uid;
+  const userUID = req.user.uid;
   // TODO: May be don't delete??
   await JoinedUserModel.deleteOne({ user_uid: userUID });
   await JoinedUserModel.create({ user_uid: userUID });
@@ -105,7 +76,7 @@ export async function addUserToInterview(req, res) {
 }
 
 export async function removeUserFromInterview(req, res) {
-  const userUID = req.body.user_uid;
+  const userUID = req.user.uid;
   const deleteRes = await JoinedUserModel.deleteOne({
     user_uid: userUID,
     is_paired: false,
@@ -115,16 +86,17 @@ export async function removeUserFromInterview(req, res) {
 
 export async function addPairingSubscription(req, res) {
   const pairingSocketId = req.body.socket_id;
-  const userUID = req.body.user_uid;
-  const socket = io.sockets.sockets.get(pairingSocketId);
+  const userUID = req.user.uid;
+  const socket = getIO().sockets.sockets.get(pairingSocketId);
   try {
-    if (!socket || !socket.connected) throw new Error("Invalid Socket ID");
+    if (!socket) throw new Error("No socket found with provided id");
+    if (!socket.connected) throw new Error("Provided socket was disconnected");
     await JoinedUserModel.updateOne(
       { user_uid: userUID },
       { $set: { pairing_socket_id: pairingSocketId } },
     );
     res.json({ success: true });
   } catch (err) {
-    res.json({ error: true, message: err.message });
+    res.json({ error: err.message });
   }
 }

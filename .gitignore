@@ -2,6 +2,7 @@
 .firebaserc
 todo.md
 assets/questions.json
+serviceAccountKey.json
 
 # Node.js dependencies
 node_modules/

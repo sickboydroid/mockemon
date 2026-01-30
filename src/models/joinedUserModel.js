@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { io } from "../server.js";
+import { getIO } from "../sockets/sockets.js";
 const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const joinedUserModel = new Schema({
@@ -39,7 +39,7 @@ joinedUserModel.pre("save", async function () {
   this.modifiedPaths().forEach((field) => {
     if (field == "is_paired" && this.get(field)) {
       const socketId = this.get("pairing_socket_id");
-      if (socketId) io.to(socketId).emit("on_paired", this.get("role"));
+      if (socketId) getIO().to(socketId).emit("on_paired", this.get("role"));
     }
   });
 });
