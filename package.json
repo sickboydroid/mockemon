@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "private": "true",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "dev:server": "tsx --watch src/server.js",
+    "dev:client": "vite"
+  },
   "author": "sickboy",
   "license": "MIT",
   "description": "An open-source platform where coders pair up for free mock coding interview",
@@ -26,7 +29,11 @@
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.1.0",
     "firebase": "^11.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
     "vite": "^7.3.1"
   }
 }

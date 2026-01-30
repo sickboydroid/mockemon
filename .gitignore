@@ -3,6 +3,7 @@
 todo.md
 assets/questions.json
 serviceAccountKey.json
+tests
 
 # Node.js dependencies
 node_modules/
