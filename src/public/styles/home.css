@@ -1,0 +1,117 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 30px 0px 30px;
+  ul {
+    display: flex;
+    font-size: 0.5em;
+    list-style: none;
+    gap: 10px;
+    transition: color 300ms;
+
+    li a {
+      text-decoration: none;
+      color: var(--gray-300);
+
+      &:hover {
+        color: var(--gray-200);
+      }
+
+      &:active {
+        color: var(--gray-100);
+      }
+    }
+  }
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100% - var(--header-height));
+}
+
+.card {
+  width: max(30%, 500px);
+  height: max(30%, 250px);
+  padding: 30px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: -1px 4px 10px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.join-btn {
+  background: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 250ms ease,
+    transform 250ms ease;
+  box-shadow: 0 4px 10px rgba(125, 60, 255, 0.3);
+
+  &:hover {
+    background: var(--hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(125, 60, 255, 0.4);
+  }
+
+  &:active {
+    background: var(--hover);
+    transform: translateY(1px);
+  }
+}
+
+.guidelines {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .guidelines-heading {
+    font-weight: bold;
+  }
+}
+
+.animate-very-fast {
+  --animate-duration: 250ms;
+}
+
+.join-meeting-alert {
+  display: flex;
+  flex-direction: column;
+
+  .active-users {
+    .count {
+      color: var(--success);
+      font-weight: 500;
+    }
+  }
+
+  .connection-status {
+    .name {
+      font-weight: 600;
+    }
+  }
+  .join-countdown {
+    .title {
+    }
+    .remaining-time {
+      font-family: monospace;
+      width: 150px;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}

@@ -20,7 +20,6 @@ yarn.lock
 # Build and output directories
 dist/
 build/
-public/
 
 # Webpack specific
 .cache/

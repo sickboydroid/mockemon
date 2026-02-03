@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,           /* Vite handles the build */
+    "skipLibCheck": true,
+
+    /* Browser Environment */
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    
+    /* Gradual Migration */
+    "allowJs": true,
+    "checkJs": false
+  },
+  "include": ["./**/*"]
+}

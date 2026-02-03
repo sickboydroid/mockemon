@@ -1,0 +1,18 @@
+header {
+  height: var(--header-height);
+  background: linear-gradient(135deg, var(--primary), var(--hover));
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-family: "Menlo", monospace;
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.logo {
+  /* text-transform: uppercase; */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

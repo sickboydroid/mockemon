@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mockemon</title>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/color.css" />
+    <link rel="stylesheet" href="/styles/elements.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/controls.css" />
+    <link rel="stylesheet" href="/styles/question.css" />
+    <link rel="stylesheet" href="/styles/videoio.css" />
+    <link rel="stylesheet" href="/styles/sidebar.css" />
+
+    <script type="module" src="/scripts/meeting.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Mockémon</div>
+    </header>
+
+    <!-- MAIN-CONTENT -->
+    <main>
+      <div class="question-container">
+        <div class="question-content"></div>
+      </div>
+      <div class="editor-container">
+        <div class="editor"></div>
+        <div class="code-controls">
+          <button class="submit">Submit</button>
+          <button class="run">Run</button>
+        </div>
+      </div>
+      <div class="compiler">Compiler will be added soon!</div>
+    </main>
+
+    <!-- Handles -->
+    <div class="vertical handle">
+      <div class="drag-icon"></div>
+    </div>
+    <div class="horizontal handle">
+      <div class="drag-icon"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="live-controls">
+      <div class="upper-controls">
+        <div class="drag-handle"></div>
+        <div class="swap-roles round-icon-btn on"></div>
+        <div class="pointer round-icon-btn on"></div>
+        <div class="audio round-icon-btn on"></div>
+        <div class="video round-icon-btn on"></div>
+        <div class="expand-controls round-icon-btn"></div>
+      </div>
+
+      <div class="lower-controls hidden">
+        <div>
+          <div class="row-1 hidden">
+            <div class="change-device">
+              <div class="icon camera"></div>
+              <div class="choices-container">
+                <select name="camera-list" id="camera-list"></select>
+              </div>
+            </div>
+            <div class="change-device">
+              <div class="icon mic"></div>
+              <div class="choices-container">
+                <select name="mic-list" id="mic-list"></select>
+              </div>
+            </div>
+          </div>
+          <div class="row-2 hidden">
+            <button>Change Question</button>
+            <button>End Session</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-container">
+      <div class="video-in-container">
+        <video
+          class="video-in"
+          autoplay="autoplay"
+          disablePictureInPicture
+        ></video>
+        <div class="no-video-icon off"></div>
+        <div class="no-audio-icon off"></div>
+      </div>
+      <div class="video-out-container">
+        <video
+          class="video-out"
+          autoplay="autoplay"
+          disablePictureInPicture
+        ></video>
+        <div class="no-video-icon off"></div>
+        <div class="no-audio-icon off"></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "Menlo";
+  src: url("assets/fonts/Menlo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+button {
+  --bg-color: white;
+  --bg-color-hover: #ebebeb;
+  --bg-color-active: #d6d6d6;
+  user-select: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  line-height: 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: var(--bg-color);
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color 250ms;
+
+  &:hover {
+    background-color: var(--bg-color-hover);
+  }
+
+  &:active {
+    background-color: var(--bg-color-active);
+  }
+
+  &:focus-visible {
+    box-shadow: none;
+  }
+
+  &:disabled {
+    background-color: var(--disabled);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.round-icon-btn {
+  --normal-bg-color: #ffffff;
+  --hover-bg-color: #cfcfcf;
+  --active-bg-color: #b8b8b8;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background-color: var(--normal-bg-color);
+  transition: background-color 250ms;
+  background-image: var(--icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0px;
+
+  &:hover {
+    background-color: var(--hover-bg-color);
+  }
+
+  &:active {
+    background-color: var(--active-bg-color);
+  }
+}
